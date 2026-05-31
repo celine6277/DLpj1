@@ -25,7 +25,7 @@ LOG_ITERS = 500
 SAVE_DIR = './best_models'
 
 # Model selection: 'MLP' or 'CNN'
-MODEL_TYPE = 'MLP'
+MODEL_TYPE = 'MLP'  
 
 # Fixed seed for reproducibility
 np.random.seed(309)
@@ -105,7 +105,7 @@ else:
 # =====================================================
 # OPTIMIZER AND LOSS SETUP
 # =====================================================
-optimizer = nn.optimizer.SGD(init_lr=LEARNING_RATE, model=model)
+optimizer = nn.optimizer.MomentGD(init_lr=LEARNING_RATE, model=model, mu=0.9)
 scheduler = nn.lr_scheduler.MultiStepLR(
     optimizer=optimizer, 
     milestones=[800, 2400, 4000], 
@@ -147,7 +147,7 @@ runner.train(
     num_epochs=NUM_EPOCHS, 
     log_iters=LOG_ITERS, 
     save_dir=SAVE_DIR,
-    save_name=f'{MODEL_TYPE}base_best_model.pickle' 
+    save_name='MLP_Momentum_best_model.pickle' 
 )
 
 
@@ -207,8 +207,8 @@ ax.set_xlabel('Predicted Label')
 ax.set_ylabel('True Label')
 ax.set_title(f'{MODEL_TYPE} Model - Confusion Matrix on Test Set')
 plt.tight_layout()
-plt.savefig(os.path.join(SAVE_DIR, f'{MODEL_TYPE}base_confusion_matrix.png'), dpi=100)
-print(f"Confusion matrix saved to {os.path.join(SAVE_DIR, f'{MODEL_TYPE}base_confusion_matrix.png')}")
+plt.savefig(os.path.join(SAVE_DIR, f'{MODEL_TYPE}_confusion_matrix.png'), dpi=100)
+print(f"Confusion matrix saved to {os.path.join(SAVE_DIR, f'{MODEL_TYPE}_confusion_matrix.png')}")
 
 # =====================================================
 # LEARNING CURVE VISUALIZATION
@@ -236,13 +236,13 @@ ax2.legend()
 ax2.grid(True)
 
 plt.tight_layout()
-plt.savefig(os.path.join(SAVE_DIR, f'{MODEL_TYPE}base_learning_curves.png'), dpi=100)
-print(f"Learning curves saved to {os.path.join(SAVE_DIR, f'{MODEL_TYPE}base_learning_curves.png')}")
+plt.savefig(os.path.join(SAVE_DIR, f'{MODEL_TYPE}_learning_curves.png'), dpi=100)
+print(f"Learning curves saved to {os.path.join(SAVE_DIR, f'{MODEL_TYPE}_learning_curves.png')}")
 
 # Save history for later use
-with open(os.path.join(SAVE_DIR, f'{MODEL_TYPE}base_history.pickle'), 'wb') as f:
+with open(os.path.join(SAVE_DIR, 'MLP_Momentum_history.pickle'), 'wb') as f:
     pickle.dump(history, f)
-print(f"Training history saved to {os.path.join(SAVE_DIR, f'{MODEL_TYPE}base_history.pickle')}")
+print(f"Training history saved to {os.path.join(SAVE_DIR, 'MLP_Momentum_history.pickle')}")
 
 print("\n" + "="*60)
 print("Training complete!")

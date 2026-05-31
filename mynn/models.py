@@ -95,7 +95,7 @@ class Model_CNN(Layer):
         # 第 3 层：第二次空间降维 
         # 输入 14x14x32 -> 输出 7x7x32
         self.layers.append(conv2D(in_channels=32, out_channels=32, kernel_size=3, stride=2, padding=1))
-        self.layers.append(ReLU()) # 注意：这里现在需要加 ReLU 了
+        self.layers.append(ReLU()) 
         
         # 第 4 层：展平层
         # 输入 7x7x32 的特征图 -> 展平为长度 1568 的一维向量 (7 * 7 * 32 = 1568)

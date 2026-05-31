@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Start Up
 
 First look into the `dataset_explore.ipynb` and get familiar with the data.
@@ -27,3 +28,6 @@ Open test_model.py, specify the saved model's path and the test dataset's path, 
 
 
 
+=======
+# DeepLearning_PJ1
+>>>>>>> 4ee766914364c28156fcdd93c0b4a0647dd326f8

@@ -20,8 +20,10 @@ class Linear(Layer):
     """
     def __init__(self, in_dim, out_dim, initialize_method=np.random.normal, weight_decay=False, weight_decay_lambda=1e-8) -> None:
         super().__init__()
-        self.W = initialize_method(size=(in_dim, out_dim))
-        self.b = initialize_method(size=(1, out_dim))
+        fan_in = in_dim
+        std = np.sqrt(2.0 / fan_in)
+        self.W = np.random.normal(0, std, size=(in_dim, out_dim))
+        self.b = np.zeros((1, out_dim))
         self.grads = {'W' : None, 'b' : None}
         self.input = None # Record the input for backward process.
 
